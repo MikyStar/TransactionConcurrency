@@ -27,6 +27,8 @@ public class Element
         }
     }
 
+    ////////////////////////////////////////////////////////
+
     private void setAction(@NotNull String string) throws Exception
     {
         char action;
@@ -76,5 +78,22 @@ public class Element
         int numberOfClosingBraces = string.length() - string.replace(")", "").length(); // See https://goo.gl/bVjfdT
 
         return (numberOfOpenBraces== 1) && (numberOfClosingBraces == 1);
+    }
+
+    ////////////////////////////////////////////////////////
+
+    public ActionType getAction()
+    {
+        return action;
+    }
+
+    public int getTransactionNumber()
+    {
+        return transactionNumber;
+    }
+
+    public char getResourceUsed()
+    {
+        return resourceUsed;
     }
 }

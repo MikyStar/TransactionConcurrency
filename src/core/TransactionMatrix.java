@@ -7,14 +7,42 @@ import java.util.ArrayList;
 
 public class TransactionMatrix
 {
-    private ArrayList<OrderedTransaction> transactionMatrix;
+    private ArrayList<OrderedTransaction> transactionMatrix = new ArrayList<>();
 
     public TransactionMatrix(@NotNull ArrayList<Element> listElement)
     {
-        OrderedTransaction orderedTransaction = new OrderedTransaction(listElement);
+        this.setTransactionMatrix(listElement);
     }
 
-    public ArrayList<Element> getTransactionNumber(int transactionNumber)
+    private void setTransactionMatrix(ArrayList<Element> listOfElement)
+    {
+        for(Element element : listOfElement)
+        {
+            // Initialize
+            if(transactionMatrix.size() == 0)
+                transactionMatrix.add(new OrderedTransaction(element));
+            else
+            {
+                boolean doesAnExistingOrderedTransactionSuits = false;
+
+                // Adding an element to an existing ordered transaction
+                for(OrderedTransaction orderedTransaction : this.transactionMatrix)
+                {
+                    if(orderedTransaction.getTransactionNumber() == element.getTransactionNumber())
+                    {
+                        orderedTransaction.addElement(element);
+                        doesAnExistingOrderedTransactionSuits = true;
+                    }
+                }
+
+                // Creating a new ordered transaction if needed
+                if(!doesAnExistingOrderedTransactionSuits)
+                    transactionMatrix.add(new OrderedTransaction(element));
+            }
+        }
+    }
+
+    public ArrayList<Element> getTransaction(int transactionNumber)
     {
         // TODO
         return new ArrayList<Element>();
@@ -24,9 +52,11 @@ public class TransactionMatrix
 
     private class OrderedTransaction
     {
-        private ArrayList<Element> listOfElement;
+        private ArrayList<Element> listOfElement = new ArrayList<>();
 
-        private OrderedTransaction(@NotNull ArrayList<Element> listOfElement)
+        private OrderedTransaction() {}
+
+        private OrderedTransaction(ArrayList<Element> listOfElement)
         {
             try
             {
@@ -36,6 +66,11 @@ public class TransactionMatrix
             {
                 Utilities.printError(String.valueOf(e));
             }
+        }
+
+        private OrderedTransaction(Element element)
+        {
+            listOfElement.add(element);
         }
 
         private void setListOfElement(@NotNull ArrayList<Element> listOfElement) throws Exception
@@ -52,6 +87,17 @@ public class TransactionMatrix
             }
 
             this.listOfElement = listOfElement;
+        }
+
+        public void addElement(Element element)
+        {
+            if(element.getTransactionNumber() == this.getTransactionNumber())
+                listOfElement.add(element);
+        }
+
+        private int getTransactionNumber()
+        {
+            return listOfElement.get(0).getTransactionNumber();
         }
     }
 }

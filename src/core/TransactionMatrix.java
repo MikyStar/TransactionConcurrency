@@ -8,10 +8,12 @@ import java.util.ArrayList;
 public class TransactionMatrix
 {
     private ArrayList<OrderedTransaction> transactionMatrix = new ArrayList<>();
+    private ArrayList<Integer> order = new ArrayList<>();
 
     public TransactionMatrix(@NotNull ArrayList<Element> listElement)
     {
         this.setTransactionMatrix(listElement);
+        this.setOrder();
     }
 
     private void setTransactionMatrix(ArrayList<Element> listOfElement)
@@ -46,6 +48,28 @@ public class TransactionMatrix
     {
         // TODO
         return new ArrayList<Element>();
+    }
+
+    public int getTotalNumberOfTransactions()
+    {
+        return this.transactionMatrix.size();
+    }
+
+    private void setOrder()
+    {
+        ArrayList<Integer> theOrder = new ArrayList<>();
+
+        for(int i = 0; i < this.getTotalNumberOfTransactions(); i++)
+        {
+            theOrder.add(this.transactionMatrix.get(i).getTransactionNumber());
+        }
+
+        this.order = theOrder;
+    }
+
+    public ArrayList<Integer> getOrder()
+    {
+        return this.order;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////

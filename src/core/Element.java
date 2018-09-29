@@ -77,7 +77,7 @@ public class Element
         int numberOfOpenBraces = string.length() - string.replace("(", "").length(); // See https://goo.gl/bVjfdT
         int numberOfClosingBraces = string.length() - string.replace(")", "").length(); // See https://goo.gl/bVjfdT
 
-        return (numberOfOpenBraces== 1) && (numberOfClosingBraces == 1);
+        return (numberOfOpenBraces == 1) && (numberOfClosingBraces == 1);
     }
 
     ////////////////////////////////////////////////////////
@@ -95,5 +95,13 @@ public class Element
     public char getResourceUsed()
     {
         return resourceUsed;
+    }
+
+    @Override
+    public String toString()
+    {
+        String stringAction = this.action == ActionType.READ ? "r" : "w";
+
+        return stringAction + this.getTransactionNumber() + "(" + this.getResourceUsed() + ")";
     }
 }

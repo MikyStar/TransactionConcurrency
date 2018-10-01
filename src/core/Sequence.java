@@ -96,4 +96,45 @@ public class Sequence
         return this.order;
     }
 
+    public ArrayList<Element> getReadFroms()
+    {
+        return new ArrayList<>(); //TODO
+    }
+
+    public ArrayList<Element> getFinalWrites()
+    {
+       return new ArrayList<>();//TODO
+    }
+
+    private void checkConcurrencyProblems()
+    {
+        // TODO see how to work with that
+        ConcurrencyProblems concurrencyProblems = new ConcurrencyProblems()
+        {
+            @Override
+            public boolean isThereDirtyRead()
+            {
+                return false;
+            }
+
+            @Override
+            public boolean isThereLostUpdate()
+            {
+                return false;
+            }
+
+            @Override
+            public boolean isThereUnreapeatableRead()
+            {
+                return false;
+            }
+
+            @Override
+            public boolean isTherePhantomRead()
+            {
+                return false;
+            }
+        };
+
+    }
 }

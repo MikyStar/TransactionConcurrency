@@ -14,9 +14,14 @@ public class Element
         {
             if( !string.isEmpty() )
             {
-                setAction(string);
-                setTransactionNumber(string);
-                setResourceUsed(string);
+                if(isThereTheRightAmountOfBraces(string))
+                {
+                    setAction(string);
+                    setTransactionNumber(string);
+                    setResourceUsed(string);
+                }
+                else
+                    throw new Exception(string + " should only contains one opening and one closing parenthesis");
             }
             else
                 throw new Exception("string is empty");
@@ -57,8 +62,6 @@ public class Element
             else
                 throw new Exception(string + " should have a transaction number");
         }
-        else
-            throw new Exception(string + " should only contains one opening and one closing parenthesis");
     }
 
     private void setResourceUsed(@NotNull String string) throws Exception
@@ -72,8 +75,6 @@ public class Element
             else
                 throw new Exception( string + " should contains only one resource and it should be a letter");
         }
-        else
-            throw new Exception(string + " should only contains one opening and one closing parenthesis");
     }
 
     private boolean isThereTheRightAmountOfBraces(@NotNull String string)

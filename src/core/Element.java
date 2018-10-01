@@ -57,6 +57,8 @@ public class Element
             else
                 throw new Exception(string + " should have a transaction number");
         }
+        else
+            throw new Exception(string + " should only contains one opening and one closing parenthesis");
     }
 
     private void setResourceUsed(@NotNull String string) throws Exception
@@ -70,6 +72,8 @@ public class Element
             else
                 throw new Exception( string + " should contains only one resource and it should be a letter");
         }
+        else
+            throw new Exception(string + " should only contains one opening and one closing parenthesis");
     }
 
     private boolean isThereTheRightAmountOfBraces(@NotNull String string)

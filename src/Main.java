@@ -1,9 +1,19 @@
 import core.Element;
+import core.Sequence;
+
+import java.util.ArrayList;
 
 public class Main
 {
     public static void main( String[] args )
     {
-        Element test = new Element("w1(z)");
+        ArrayList<Element> testList = new ArrayList<>();
+        testList.add(new Element("w1(u"));
+        testList.add(new Element("w1(u"));
+        testList.add(new Element("w2(u"));
+
+        Sequence test = new Sequence(testList);
+
+        System.out.println(test.getOrder());
     }
 }

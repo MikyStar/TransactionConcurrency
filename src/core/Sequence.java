@@ -1,7 +1,6 @@
 package core;
 
 import com.sun.istack.internal.NotNull;
-
 import java.util.ArrayList;
 
 public class Sequence
@@ -14,16 +13,32 @@ public class Sequence
 
     public Sequence(@NotNull String string)
     {
-        this.setListElement(string);
-        this.setTransactionMatrix();
-        this.setOrder();
+        try
+        {
+            this.setListElement(string);
+            this.checkConcurrencyProblems();
+            this.setTransactionMatrix();
+            this.setOrder();
+        }
+        catch (Exception e)
+        {
+            Utilities.printError(String.valueOf(e));
+        }
     }
 
     public Sequence(@NotNull ArrayList<Element> listElement)
     {
-        this.listElement = listElement;
-        this.setTransactionMatrix();
-        this.setOrder();
+        try
+        {
+            this.listElement = listElement;
+            this.checkConcurrencyProblems();
+            this.setTransactionMatrix();
+            this.setOrder();
+        }
+        catch (Exception e)
+        {
+            Utilities.printError(String.valueOf(e));
+        }
     }
 
     ////////////////////////////////////////////////
@@ -106,35 +121,38 @@ public class Sequence
        return new ArrayList<>();//TODO
     }
 
-    private void checkConcurrencyProblems()
+    private void checkConcurrencyProblems() throws Exception
     {
-        // TODO see how to work with that
-        ConcurrencyProblems concurrencyProblems = new ConcurrencyProblems()
-        {
-            @Override
-            public boolean isThereDirtyRead()
-            {
-                return false;
-            }
+        if(isThereDirtyRead())
+            throw new Exception("This sequence contains a dirty read problem");
 
-            @Override
-            public boolean isThereLostUpdate()
-            {
-                return false;
-            }
+        if(isThereLostUpdate())
+            throw new Exception("This sequence contains a lost update problem");
 
-            @Override
-            public boolean isThereUnreapeatableRead()
-            {
-                return false;
-            }
+        if(isThereUnreapeatableRead())
+            throw new Exception("This sequence contains an unreapeatable read problem");
 
-            @Override
-            public boolean isTherePhantomRead()
-            {
-                return false;
-            }
-        };
+        if(isTherePhantomRead())
+            throw new Exception("This sequence contains a phantom read problem");
+    }
 
+    private boolean isThereDirtyRead()
+    {
+        return false; //TODO
+    }
+
+    private boolean isThereLostUpdate()
+    {
+        return false; //TODO
+    }
+
+    private boolean isThereUnreapeatableRead()
+    {
+        return false; //TODO
+    }
+
+    private boolean isTherePhantomRead()
+    {
+        return false; //TODO
     }
 }

@@ -1,6 +1,6 @@
-
 \.idea/
-
 TransactionConcurrency\.iml
-
 *.class
+*.bak*
+*.lck
+

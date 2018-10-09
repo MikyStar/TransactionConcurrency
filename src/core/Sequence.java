@@ -112,8 +112,25 @@ public class Sequence
     }
 
     public ArrayList<Element> getReadFroms()
+    private ArrayList<Element> getAllActionsOnResource(@NotNull char resource)
     {
-        return new ArrayList<>(); //TODO
+        ArrayList<Element> listElement = new ArrayList<>();
+
+        for(Element element : this.listElement)
+            if(element.getResourceUsed() == resource)
+                listElement.add(element);
+
+        return listElement;
+    }
+
+    private ArrayList<Character> getAllResourcesUsed()
+    {
+        ArrayList<Character> listResources = new ArrayList<>();
+
+        for(Element element : this.listElement)
+            listResources.add(element.getResourceUsed());
+
+        return listResources;
     }
 
     public ArrayList<Element> getFinalWrites()
